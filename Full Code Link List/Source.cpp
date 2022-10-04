@@ -30,8 +30,12 @@ struct vehicle {
 	float price;
 	vehicle* next;
 };
-vehicle* head;
-vehicle * tmp;
+vehicle * head; //head  is a start pointer , used to point to the 1st node
+vehicle * tmp;  //tmp is a pointer to do a traversing
+vehicle* temp;  //temp is a pointer to addrear/addmiddle/delrear by traversing
+
+string mdl;		//variable mdl 
+
 int main(void) {
 	head = NULL;
 
@@ -74,6 +78,7 @@ int main(void) {
 //functions bodies
 void addfront() {
 	vehicle* node = new vehicle;
+	
 	cout << "\nMasukkan Brand : ";
 	getline(cin >> ws, node->brand);
 
@@ -96,12 +101,78 @@ void addfront() {
 
 
 void addmiddle() {
+	if (head==NULL) { //true semasa bil node 0
+		cout << endl << "Linked List is EMPTY!!! Cannot perform Add Middle" << endl;
 
+	}
+	else if (head-> next == NULL) { //true semasa bil node 1
+		cout << endl << "Linked List is EMPTY!!! Cannot perform Add Middle" << endl;
 
+	}
+	else { //true semasa bil node 2 dan lebih
+		display();
+
+		cout << endl << "Kereta baru nk diAdd selepas model mana?: ";
+		cin >> mdl;
+
+		while (temp != NULL) {
+			if (temp->model == mdl) {
+				//stop  traverse
+				break;
+			}
+			else
+			{
+				//gerakkan temp ke next node 
+				temp = temp->next;
+			}
+		}
+
+		temp = head;
+		vehicle* node = new vehicle;
+
+		cout << "\nMasukkan Brand : ";
+		getline(cin >> ws, node->brand);
+
+		cout << "Masukkan Model : ";
+		getline(cin >> ws, node->model);
+
+		cout << "Masukkan  Tahun Keluaran: ";
+		cin >> node->yearmade;
+
+		cout << "Masukkan Harga: ";
+		cin >> node->price;
+
+		node->next = temp->next;
+		temp->next = node;
+
+	}
 }
-void addrear(){
+void addrear() {
+	vehicle* node = new vehicle;
 
+	cout << "\nMasukkan Brand : ";
+	getline(cin >> ws, node->brand);
 
+	cout << "Masukkan Model : ";
+	getline(cin >> ws, node->model);
+
+	cout << "Masukkan  Tahun Keluaran: ";
+	cin >> node->yearmade;
+
+	cout << "Masukkan Harga: ";
+	cin >> node->price;
+
+	node->next = NULL;
+	if (head == NULL)//true utk 1st node
+		head = node;
+	else {//true utk 2nd, 3rd and the rest
+		
+		temp = head;
+		while (temp -> next != NULL) {
+			temp = temp->next;
+		}
+		head->next = node;
+	}
 }
 void delfront(){
 
@@ -126,8 +197,8 @@ void display() {
 	while (tmp!=NULL)
 	{
 		cout << tmp->brand << "\t"
-			<< tmp->price << "\t"
 			<< tmp->model << "\t"
+			<< tmp->price << "\t"
 			<< tmp->yearmade << "\t\n";
 			
 	tmp = tmp ->next;
