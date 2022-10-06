@@ -1,6 +1,6 @@
 /*
 
-A full code for Linked List:
+A full code for Single Linked List:
 
 For your reference to Mini Project
 
@@ -30,9 +30,11 @@ struct vehicle {
 	float price;
 	vehicle* next;
 };
-vehicle * head; //head  is a start pointer , used to point to the 1st node
-vehicle * tmp;  //tmp is a pointer to do a traversing
+vehicle* head; //head  is a start pointer , used to point to the 1st node
+vehicle* tmp;  //tmp is a pointer to do a traversing
 vehicle* temp;  //temp is a pointer to addrear/addmiddle/delrear by traversing
+vehicle* del;	//del is a pointer to delete node in delrea/delmiddle
+
 
 string mdl;		//variable mdl 
 
@@ -60,7 +62,7 @@ int main(void) {
 		case 3:addrear(); break;
 		case 4:delfront(); break;
 		case 5:delmiddle(); break;
-		case 6:addrear(); break;
+		case 6:delrear(); break;
 		case 7:search(); break;
 		case 8:display(); break;
 		case 9:exit(1); break;
@@ -175,21 +177,46 @@ void addrear() {
 	}
 }
 void delfront(){
-
+	if (head == NULL)
+	{
+		cout << endl << "Linked List is EMPTY!!Cannot perform delete front." << endl;
+	}
+	else
+		head = head->next;
 
 }
 void delmiddle(){
-
+	if (head == NULL) {
+		cout << endl << "Linked List is EMPTY!!Cannot perform delete middle." << endl;
+	}
+	
+	else{}
 
 }
-void delrear(){
-
-
+void delrear() {
+	if (head == NULL) {
+		cout << endl << "Linked List is EMPTY!!Cannot perform delete rear." << endl;
+	}
+	else {
+		temp = head;
+		while (temp->next != NULL) {
+			del = temp;
+			temp = temp->next;
+		}
+		if (head->next == NULL) {
+			head = NULL;
+		}
+		else
+			del->next = NULL;
+	}
 }
+
+
 void search(){
 
 
 }
+
 void display() {
 	//traverse
 	tmp = head;
@@ -197,9 +224,9 @@ void display() {
 	while (tmp!=NULL)
 	{
 		cout << tmp->brand << "\t"
-			<< tmp->model << "\t"
-			<< tmp->price << "\t"
-			<< tmp->yearmade << "\t\n";
+			 << tmp->model << "\t"
+			 << tmp->price << "\t"
+			 << tmp->yearmade << "\t\n";
 			
 	tmp = tmp ->next;
 	
