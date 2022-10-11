@@ -4,10 +4,19 @@ A full code for Single Linked List:
 
 For your reference to Mini Project
 
+*/
 
 
+
+
+
+/*
+
+Data struct is a database
 
 */
+
+
 
 #include <iostream>
 #include <string>
@@ -24,6 +33,7 @@ void search();
 void display();
 
 struct vehicle {
+	string idvehicle;
 	string brand;
 	string model;
 	int yearmade;
@@ -33,7 +43,7 @@ struct vehicle {
 vehicle* head; //head  is a start pointer , used to point to the 1st node
 vehicle* tmp;  //tmp is a pointer to do a traversing
 vehicle* temp;  //temp is a pointer to addrear/addmiddle/delrear by traversing
-vehicle* del;	//del is a pointer to delete node in delrea/delmiddle
+vehicle* del;	//del is a pointer to delete node in delrear/delmiddle
 
 
 string mdl;		//variable mdl 
@@ -114,8 +124,8 @@ void addmiddle() {
 	else { //true semasa bil node 2 dan lebih
 		display();
 
-		cout << endl << "Kereta baru nk diAdd selepas model mana?: ";
-		cin >> mdl;
+		cout << endl << "Kereta baru nk di Add selepas model mana?: ";
+		cin >>  mdl;
 
 		while (temp != NULL) {
 			if (temp->model == mdl) {
@@ -176,6 +186,8 @@ void addrear() {
 		head->next = node;
 	}
 }
+
+
 void delfront(){
 	if (head == NULL)
 	{
@@ -186,13 +198,53 @@ void delfront(){
 
 }
 void delmiddle(){
-	if (head == NULL) {
+
+	if (head == NULL) //check 0 node
+	{
 		cout << endl << "Linked List is EMPTY!!Cannot perform delete middle." << endl;
 	}
+	else if(head->next==NULL) //check 1 node
+	{
+		cout << endl << "Linked List ONLY have one node!!!Cannot perform delete middle" << endl;
+	}
+	else if (head -> next -> next==NULL) //chceck 2 node
+	{
+		cout << endl << "Linked List ONLY have two nodes!!!Cannot perform delete middle" << endl;
+
+	}
+	else // 3 node atau lebih
+	{
+			display();
+		//assume model as PRIMARY KEY
+		cout <<endl<< "What type of model you want to delete?"<<endl;
+		getline(cin >> ws, mdl); //cari node yang  yang user input
+		
+		temp = head;
+		while (temp!=NULL) //traverse 
+		{
+			if (temp->model==mdl) // to found choosen model
+			{
+
+				break;
+
+			}
+			else
+			{
+				del = temp;
+				temp = temp->next;
+
+			}//if else
+		
+		}//end loop
+	del->next = temp-> next;
 	
-	else{}
+
+	}//nested else
+
 
 }
+
+
 void delrear() {
 	if (head == NULL) {
 		cout << endl << "Linked List is EMPTY!!Cannot perform delete rear." << endl;
@@ -214,6 +266,35 @@ void delrear() {
 
 void search(){
 
+	bool jumpa=false;
+
+	cout << endl << "Masukkan model yang dicari:"<<endl;
+	getline(cin >> ws, mdl);
+	tmp = head;
+	while (tmp!=NULL)
+	{
+		if (tmp->model==mdl)
+		{
+			jumpa = true;
+
+			break;
+		}
+		else {
+			tmp = tmp->next;
+		}//if else
+
+
+
+	}//end loop
+	if (jumpa) {
+
+		cout << endl << mdl << " ada dalam link list" << endl;
+
+	}
+	else
+	{
+		cout << endl << mdl << " tidak ada dalam Link List" << endl;
+	}
 
 }
 
